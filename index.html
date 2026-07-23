@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HIRE OR DIE V30</title>
+
+<link rel="icon" href="favicon.ico">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<!-- ===========================
+LOADING SCREEN
+=========================== -->
+
+<div id="loadingScreen">
+
+    <h1>HIRE OR DIE</h1>
+
+    <p>Loading V30...</p>
+
+</div>
+
+<!-- ===========================
+MAIN MENU
+=========================== -->
+
+<div id="mainMenu">
+
+    <h1>HIRE OR DIE</h1>
+
+    <button id="startGameBtn">
+        Start Game
+    </button>
+
+    <button id="continueBtn">
+        Continue
+    </button>
+
+    <button id="settingsBtn">
+        Settings
+    </button>
+
+    <button id="creditsBtn">
+        Credits
+    </button>
+
+</div>
+
+<!-- ===========================
+GAME CONTAINER
+=========================== -->
+
+<div id="gameContainer">
+
+    <canvas
+        id="gameCanvas"
+        width="1280"
+        height="720">
+    </canvas>
+
+</div>
+
+<!-- ===========================
+HUD
+=========================== -->
+
+<div id="hud">
+
+    <div id="playerStats">
+
+        ❤️ HP :
+        <span id="hp">100</span>
+
+        💙 Mana :
+        <span id="mana">100</span>
+
+        ⭐ Level :
+        <span id="level">1</span>
+
+        ⚡ XP :
+        <span id="xp">0</span>
+
+        🪙 Coins :
+        <span id="coins">0</span>
+
+        💎 Gems :
+        <span id="gems">0</span>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+BOSS BAR
+=========================== -->
+
+<div id="bossContainer">
+
+    <h2 id="bossName">
+
+    </h2>
+
+    <div id="bossBar">
+
+        <div id="bossHealth">
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+MESSAGE
+=========================== -->
+
+<div id="message">
+
+Welcome Survivor...
+
+</div>
+
+<!-- ===========================
+MINIMAP
+=========================== -->
+
+<div id="miniMapContainer">
+
+<img
+id="miniMap"
+src="assets/maps/city.png">
+
+</div>
+
+<!-- ===========================
+INVENTORY
+=========================== -->
+
+<div id="inventoryPanel">
+
+<h2>
+
+Inventory
+
+</h2>
+
+<div id="inventoryGrid">
+
+</div>
+
+</div>
+
+<!-- ===========================
+SHOP
+=========================== -->
+
+<div id="shopPanel">
+
+<h2>
+
+Shop
+
+</h2>
+
+<div id="shopItems">
+
+</div>
+
+</div>
+
+<!-- ===========================
+SKILLS
+=========================== -->
+
+<div id="skillPanel">
+
+<h2>
+
+Skill Tree
+
+</h2>
+
+<div id="skillTree">
+
+</div>
+
+</div>
+
+<!-- ===========================
+QUESTIONS
+=========================== -->
+
+<div id="questionPanel">
+
+<h2>
+
+Coding Question
+
+</h2>
+
+<p id="questionText">
+
+</p>
+
+<div id="options">
+
+</div>
+
+</div>
+
+<!-- ===========================
+STORY
+=========================== -->
+
+<div id="storyPanel">
+
+<h2 id="storyTitle">
+
+Chapter 1
+
+</h2>
+
+<p id="storyText">
+
+The journey begins...
+
+</p>
+
+</div>
+
+<!-- ===========================
+AUDIO
+=========================== -->
+
+<audio
+id="backgroundMusic"
+src="assets/audio/battle.mp3"
+loop>
+</audio>
+
+<audio
+id="bossMusic"
+src="assets/audio/boss.mp3">
+</audio>
+
+<audio
+id="correctSound"
+src="assets/audio/correct.mp3">
+</audio>
+
+<audio
+id="wrongSound"
+src="assets/audio/wrong.mp3">
+</audio>
+
+<audio
+id="victorySound"
+src="assets/audio/victory.mp3">
+</audio>
+
+<audio
+id="levelupSound"
+src="assets/audio/levelup.mp3">
+</audio>
+<!-- ==========================================
+PAUSE MENU
+========================================== -->
+
+<div id="pauseMenu" class="hidden">
+
+    <h1>Game Paused</h1>
+
+    <button id="resumeBtn">
+        ▶ Resume
+    </button>
+
+    <button id="saveBtn">
+        💾 Save Game
+    </button>
+
+    <button id="loadBtn">
+        📂 Load Game
+    </button>
+
+    <button id="settingsPauseBtn">
+        ⚙ Settings
+    </button>
+
+    <button id="exitBtn">
+        🚪 Exit to Menu
+    </button>
+
+</div>
+
+
+<!-- ==========================================
+SETTINGS PANEL
+========================================== -->
+
+<div id="settingsPanel" class="hidden">
+
+    <h1>Settings</h1>
+
+    <div class="setting">
+
+        <label>
+
+            Music Volume
+
+        </label>
+
+        <input
+        type="range"
+        id="musicSlider"
+        min="0"
+        max="100"
+        value="50">
+
+    </div>
+
+    <div class="setting">
+
+        <label>
+
+            Sound Effects
+
+        </label>
+
+        <input
+        type="range"
+        id="soundSlider"
+        min="0"
+        max="100"
+        value="50">
+
+    </div>
+
+    <div class="setting">
+
+        <label>
+
+            Difficulty
+
+        </label>
+
+        <select id="difficulty">
+
+            <option>Easy</option>
+
+            <option selected>Normal</option>
+
+            <option>Hard</option>
+
+            <option>Nightmare</option>
+
+        </select>
+
+    </div>
+
+    <button id="closeSettings">
+
+        Close
+
+    </button>
+
+</div>
+
+
+<!-- ==========================================
+CHARACTER SELECTION
+========================================== -->
+
+<div id="characterSelection">
+
+<h1>
+
+Choose Your Character
+
+</h1>
+
+<div id="characters">
+
+<div class="character">
+
+<img src="assets/player/player.png">
+
+<p>
+
+Pixel Blaze
+
+</p>
+
+</div>
+
+<div class="character">
+
+<img src="assets/player/player2.png">
+
+<p>
+
+Cyber Hunter
+
+</p>
+
+</div>
+
+<div class="character">
+
+<img src="assets/player/player3.png">
+
+<p>
+
+Code Samurai
+
+</p>
+
+</div>
+
+</div>
+
+<button id="characterStart">
+
+Start Adventure
+
+</button>
+
+</div>
+
+
+<!-- ==========================================
+LEVEL COMPLETE
+========================================== -->
+
+<div id="levelComplete" class="hidden">
+
+<h1>
+
+LEVEL COMPLETE
+
+</h1>
+
+<p>
+
+Rewards Earned
+
+</p>
+
+<div id="rewardPanel">
+
+</div>
+
+<button id="nextLevelBtn">
+
+Continue →
+
+</button>
+
+</div>
+
+
+<!-- ==========================================
+GAME OVER
+========================================== -->
+
+<div id="gameOverScreen" class="hidden">
+
+<h1>
+
+GAME OVER
+
+</h1>
+
+<p>
+
+The Recruiters Won...
+
+</p>
+
+<button id="retryBtn">
+
+Retry
+
+</button>
+
+<button id="menuBtn">
+
+Main Menu
+
+</button>
+
+</div>
+
+
+<!-- ==========================================
+VICTORY SCREEN
+========================================== -->
+
+<div id="victoryScreen" class="hidden">
+
+<h1>
+
+Congratulations!
+
+</h1>
+
+<p>
+
+You Defeated The God Recruiter
+
+</p>
+
+<button id="continueStory">
+
+View Ending
+
+</button>
+
+</div>
+
+
+<!-- ==========================================
+LOADING OVERLAY
+========================================== -->
+
+<div id="loadingOverlay">
+
+<h1>
+
+Loading Assets...
+
+</h1>
+
+<div id="loadingBar">
+
+<div id="loadingProgress">
+
+</div>
+
+</div>
+
+<p id="loadingPercent">
+
+0%
+
+</p>
+
+</div>
+
+
+<!-- ==========================================
+CREDITS
+========================================== -->
+
+<div id="creditsPanel" class="hidden">
+
+<h1>
+
+Credits
+
+</h1>
+
+<p>
+
+Developer
+
+Harvie Sharma
+
+</p>
+
+<p>
+
+Project
+
+HIRE OR DIE V30
+
+</p>
+
+<p>
+
+Powered By
+
+HTML
+
+CSS
+
+JavaScript
+
+</p>
+
+<button id="closeCredits">
+
+Close
+
+</button>
+
+</div>
+
+
+<!-- ==========================================
+FPS COUNTER
+========================================== -->
+
+<div id="fpsCounter">
+
+FPS : 60
+
+</div>
+
+
+<!-- ==========================================
+VERSION
+========================================== -->
+
+<div id="version">
+
+HIRE OR DIE V30
+
+</div>
+
+<!-- ==========================================
+QUEST LOG
+========================================== -->
+
+<div id="questPanel" class="hidden">
+
+<h1>📜 Quests</h1>
+
+<div id="questList">
+
+<p>No Active Quests</p>
+
+</div>
+
+</div>
+
+
+<!-- ==========================================
+ACHIEVEMENTS
+========================================== -->
+
+<div id="achievementPanel" class="hidden">
+
+<h1>🏆 Achievements</h1>
+
+<div id="achievementList">
+
+</div>
+
+</div>
+
+
+<!-- ==========================================
+WORLD MAP
+========================================== -->
+
+<div id="worldMapPanel" class="hidden">
+
+<h1>🌍 World Map</h1>
+
+<img
+src="assets/maps/world-map.png"
+id="worldMapImage">
+
+<div id="mapButtons">
+
+<button id="cityBtn">
+City Ruins
+</button>
+
+<button id="fortressBtn">
+Tech Fortress
+</button>
+
+<button id="labBtn">
+Dark Laboratory
+</button>
+
+<button id="serverBtn">
+Server Room
+</button>
+
+<button id="cloudBtn">
+Cloud Citadel
+</button>
+
+<button id="coreBtn">
+Apocalypse Core
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ==========================================
+TREASURE CHEST
+========================================== -->
+
+<div id="treasurePanel" class="hidden">
+
+<h1>🎁 Treasure Found!</h1>
+
+<div id="treasureItems">
+
+</div>
+
+<button id="collectTreasure">
+
+Collect
+
+</button>
+
+</div>
+
+
+<!-- ==========================================
+AI MENTOR
+========================================== -->
+
+<div id="mentorPanel" class="hidden">
+
+<h1>🤖 AI Mentor</h1>
+
+<div id="mentorMessages">
+
+Welcome Survivor...
+
+</div>
+
+<input
+type="text"
+id="mentorInput"
+placeholder="Ask Mentor...">
+
+<button id="mentorSend">
+
+Send
+
+</button>
+
+</div>
+
+
+<!-- ==========================================
+INTERVIEW REPORT
+========================================== -->
+
+<div id="reportPanel" class="hidden">
+
+<h1>
+
+Interview Report
+
+</h1>
+
+<table>
+
+<tr>
+
+<td>
+
+Overall Score
+
+</td>
+
+<td id="reportScore">
+
+0%
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Questions Solved
+
+</td>
+
+<td id="reportQuestions">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Accuracy
+
+</td>
+
+<td id="reportAccuracy">
+
+0%
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Bosses Defeated
+
+</td>
+
+<td id="reportBosses">
+
+0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Play Time
+
+</td>
+
+<td id="reportTime">
+
+00:00
+
+</td>
+
+</tr>
+
+</table>
+
+<button id="downloadReport">
+
+Download Report
+
+</button>
+
+</div>
+
+
+<!-- ==========================================
+CODING TERMINAL
+========================================== -->
+
+<div id="codingTerminal" class="hidden">
+
+<div id="terminalHeader">
+
+Coding Challenge
+
+</div>
+
+<div id="terminalBody">
+
+<p id="terminalQuestion">
+
+Question Appears Here...
+
+</p>
+
+<div id="terminalOptions">
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ==========================================
+NOTIFICATION POPUP
+========================================== -->
+
+<div id="notification">
+
+Level Up!
+
+</div>
+
+
+<!-- ==========================================
+DAMAGE POPUPS
+========================================== -->
+
+<div id="floatingNumbers">
+
+</div>
+
+
+<!-- ==========================================
+PARTICLES
+========================================== -->
+
+<div id="particleContainer">
+
+</div>
+
+
+<!-- ==========================================
+LOADING PARTICLES
+========================================== -->
+
+<div id="backgroundEffects">
+
+</div>
+
+
+<!-- ==========================================
+GAME VERSION
+========================================== -->
+
+<footer>
+
+<p>
+
+HIRE OR DIE V30
+
+Version 30.0
+
+© 2026 Harvie Sharma
+
+</p>
+
+</footer>
+
+
+<!-- ======================
+CORE
+====================== -->
+
+<script src="js/core/config.js"></script>
+<script src="js/core/constants.js"></script>
+<script src="js/core/globals.js"></script>
+<script src="js/core/game.js"></script>
+<script src="js/core/main.js"></script>
+
+<!-- ======================
+ENGINE
+====================== -->
+
+<script src="js/engine/renderer.js"></script>
+<script src="js/engine/camera.js"></script>
+<script src="js/engine/collision.js"></script>
+<script src="js/engine/physics.js"></script>
+<script src="js/engine/animation.js"></script>
+
+<!-- ======================
+PLAYER
+====================== -->
+
+<script src="js/player/player.js"></script>
+<script src="js/player/movement.js"></script>
+<script src="js/player/combat.js"></script>
+<script src="js/player/abilities.js"></script>
+
+<!-- ======================
+ENEMIES
+====================== -->
+
+<script src="js/enemies/zombies.js"></script>
+<script src="js/enemies/enemyAI.js"></script>
+
+<!-- ======================
+BOSSES
+====================== -->
+
+<script src="js/bosses/bosses.js"></script>
+
+<!-- ======================
+MAPS
+====================== -->
+
+<script src="js/maps/maps.js"></script>
+
+<!-- ======================
+LEVELS
+====================== -->
+
+<script src="js/levels/levelManager.js"></script>
+
+<!-- ======================
+QUESTIONS
+====================== -->
+
+<script src="js/questions/questionManager.js"></script>
+
+<!-- ======================
+INVENTORY
+====================== -->
+
+<script src="js/inventory/inventory.js"></script>
+
+<!-- ======================
+SKILLS
+====================== -->
+
+<script src="js/skills/skills.js"></script>
+
+<!-- ======================
+STORY
+====================== -->
+
+<script src="js/story/story.js"></script>
+
+<!-- ======================
+UI
+====================== -->
+
+<script src="js/ui/hud.js"></script>
+
+<!-- ======================
+SAVE
+====================== -->
+
+<script src="js/save/saveSystem.js"></script>
+
+<!-- ======================
+AUDIO
+====================== -->
+
+<script src="js/audio/audio.js"></script>
+
+<!-- ======================
+AI
+====================== -->
+
+<script src="js/ai/mentor.js"></script>
+
+</body>
+</html>
